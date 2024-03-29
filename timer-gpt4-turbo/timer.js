@@ -1,28 +1,27 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const endTime = new Date("2024-04-01T03:00:00").getTime(); // Set your countdown date here
-  const timerElement = document.getElementById("timer");
+// Set the date we're counting down to
+var countDownDate = new Date("Apr 5, 2024 15:37:25").getTime();
 
-  const updateTimer = () => {
-    const now = new Date().getTime();
-    const distance = endTime - now;
+// Update the count down every 1 second
+var x = setInterval(function () {
+  // Get today's date and time
+  var now = new Date().getTime();
 
-    // Time calculations for days, hours, minutes, and seconds
-    const hours = Math.floor(
-      (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-    );
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
 
-    // Display the result in the element with id="timer"
-    timerElement.innerText = `${hours}:${minutes}:${seconds}`;
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    // If the countdown is over, write some text
-    if (distance < 0) {
-      clearInterval(interval);
-      timerElement.innerText = "EXPIRED";
-    }
-  };
+  // Display the result in the element with id="timer"
+  document.getElementById("timer").innerHTML =
+    days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
 
-  // Update the countdown every 1 second
-  const interval = setInterval(updateTimer, 1000);
-});
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("timer").innerHTML = "EXPIRED";
+  }
+}, 1000);
